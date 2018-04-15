@@ -4,6 +4,7 @@ import (
 	"github.com/jung-kurt/gofpdf"
 	"os"
 	"time"
+	"log"
 )
 
 
@@ -16,7 +17,13 @@ func main() {
 
 	pdf = image(pdf)
 
-
+	if pdf.Err() {
+		log.Fatalf("Creating pdf file has failed: %s\n", pdf.Error())
+	}
+	err:= savePDF(pdf)
+	if err != nil {
+		log.Fatalf("cannot save PDF: %s|n", err)
+	}
 
 }
 
@@ -54,5 +61,8 @@ func image(pdf *gofpdf.Fpdf) *gofpdf.Fpdf {
 	return pdf
 }
 
+func savePDF(pdf *gofpdf.Fpdf) error {
+	return pdf.OutputFileAndClose("report.pdf")
+}
 
 
