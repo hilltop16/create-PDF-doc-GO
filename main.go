@@ -48,6 +48,11 @@ func newReport() *gofpdf.Fpdf {
 	return pdf
 }
 
+func image(pdf *gofpdf.Fpdf) *gofpdf.Fpdf {
+	pdf.ImageOptions("stats.png", 255, 10, 25, 25,
+		false, gofpdf.ImageOptions{ImageType:"PNG", ReadDpi: true}, 0, "")
+	return pdf
+}
 
 
 
